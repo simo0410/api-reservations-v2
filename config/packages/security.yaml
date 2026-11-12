@@ -17,19 +17,24 @@ security:
             pattern: ^/(_profiler(/|$)|(_wdt|assets|build)/)
             security: false
 
+        login : 
+            pattern: ^/api/login
+            stateless: true
+            provider: app_user_provider
+            json_login:
+               check_path: /api/login_check    
+               success_handler: lexik_jwt_authentication.handler.authentication_success
+               failure_handler: lexik_jwt_authentication.handler.authentication_failure    
+
         api:
             pattern: ^/api
             stateless: true
             provider: app_user_provider
-            http_basic:
-                realm: "API Secured Area"
+            jwt: ~
+            #http_basic:
+            #   realm: "API Secured Area"
 
-        #login : 
-         #   pattern: ^/api/login
-         #  stateless: true
-         #  provider: app_user_check
-         #  json_login:
-          #     check_path: /api/login_check    
+        
 
         main:
             lazy: true
@@ -46,7 +51,8 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api, roles: ROLE_USER }
 
 when@test:
     security:

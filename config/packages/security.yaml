@@ -31,8 +31,9 @@ security:
             stateless: true
             provider: app_user_provider
             jwt: ~
-            #http_basic:
-            #   realm: "API Secured Area"
+            http_basic:
+                realm: "API Secured Area"
+            entry_point: jwt    
 
         
 

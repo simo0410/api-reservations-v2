@@ -16,6 +16,21 @@ security:
             # Ensure dev tools and static assets are always allowed
             pattern: ^/(_profiler(/|$)|(_wdt|assets|build)/)
             security: false
+
+        api:
+            pattern: ^/api
+            stateless: true
+            provider: app_user_provider
+            http_basic:
+                realm: "API Secured Area"
+
+        #login : 
+         #   pattern: ^/api/login
+         #  stateless: true
+         #  provider: app_user_check
+         #  json_login:
+          #     check_path: /api/login_check    
+
         main:
             lazy: true
             provider: app_user_provider
@@ -30,6 +45,8 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:

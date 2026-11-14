@@ -33,7 +33,7 @@ security:
             jwt: ~
             http_basic:
                 realm: "API Secured Area"
-            entry_point: jwt    
+            entry_point: http_basic    
 
         
 
